@@ -4,8 +4,12 @@ function asyncExecutor(generator) {
 
   function inner(args) {
     const out = iterator.next(args)
+
     if (out.done) return out.value;
-    return Promise.resolve(out.value).then(inner);
+
+    return Promise.resolve(out.value)
+      .then(inner)
+      .catch(console.log);
   }
   return inner();
 }
