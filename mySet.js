@@ -73,6 +73,14 @@ class MySet {
   toPrimitive() {
     return this.collection;
   }
+  
+  forEach(cb, context) {
+    if (!context) {
+      this.collection.forEach(cb);
+    } else {
+      this.collection.forEach(cb.bind(context))
+    }
+  }
 }
 
 // тесты
@@ -122,9 +130,9 @@ for (const item of set.entries()) {
   console.log(String(set)) // [object MySet]
   console.log(Object.prototype.toString.call(set)) // [object MySet]
 
-  //   // задание со звездочкой *
-  //   // // есть forEach, который делает какие-то странные вещи...
-  //   // set.forEach(function (item) {
-  //   //   console.log(item.getValue.call(this)); // 42
-  //   // }, data)
+  // задание со звездочкой *
+  // есть forEach, который делает какие-то странные вещи...
+  set.forEach(function (item) {
+    console.log(item.getValue.call(this)); // 42
+  }, data)
 }
